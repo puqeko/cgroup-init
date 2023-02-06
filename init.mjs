@@ -43,8 +43,8 @@ const stop = (m) => {echo(chalk.red("𐄂 " + m)); exit()}  // critical requirem
 
   const min_peak = [5, 19]
   if (ver < min_peak) {
-    warn(`Kernel versions less than ${s(min_peak)} cannot support measuring program \
-memory usage. Memory limits can still be inforced.`)
+    warn(`Kernel versions less than ${s(min_peak)} cannot support measuring program
+  memory usage. Memory limits can still be inforced.`)
     n_missing += 1
   }
   
@@ -67,8 +67,8 @@ memory usage. Memory limits can still be inforced.`)
   let out = await $`grep cgroup2 /proc/filesystems`  // prints `nodev cgroup2` on success
   out = out.toString().trim().split(/\s+/).at(-1)
   if (out !== "cgroup2")
-    stop("This system does not appear to support cgroup v2, which is required. Perhaps it is \
-disabled in the kernel???")  // unlikley to happen if kernel requirements met
+    stop(`This system does not appear to support cgroup v2, which is required. Perhaps it is
+  disabled in the kernel???`)  // unlikley to happen if kernel requirements met
   good("Kernel supports required cgroup v2.")
 }
 
@@ -105,8 +105,8 @@ disabled in the kernel???")  // unlikley to happen if kernel requirements met
   // have more of an effect on each other and runtimes will be less consistant.
   const min_ver = 244
   if (ver < min_ver)
-    warn(`systemd is version ${ver}. Versions less than ${min_ver} can't constrain \
-processes to specific CPUs or memory nodes which could effect reproducability.`)
+    warn(`systemd is version ${ver}. Versions less than ${min_ver} can't constrain
+  processes to specific CPUs or memory nodes which could effect reproducability.`)
   good(`systemd is version ${ver}.`)
 }
 
