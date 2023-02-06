@@ -50,13 +50,13 @@ const stop = (m) => {echo(chalk.red("𐄂 " + m)); exit()}  // critical requirem
   }
   
   const min_freezer = [5, 2]
-  if (lt(ver < min_freezer)) {  // TODO: unsure yet of the impacts of this
+  if (lt(ver, min_freezer)) {  // TODO: unsure yet of the impacts of this
     warn(`Kernel versions less than ${s(min_freezer)} cannot support freezing groups of processes.`)
     n_missing += 1
   }
 
   const min_abs = [4, 15]
-  if (lt(ver < min_abs))
+  if (lt(ver, min_abs))
     stop(`Kernel versions less than ${s(min_abs)} are too old to support measuring cpu throughput.`)
   
   if (n_missing > 0) warn(`Kernel version is ${s(ver)}. Missing ${n_missing} important features!`)
