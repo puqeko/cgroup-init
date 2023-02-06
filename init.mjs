@@ -59,7 +59,8 @@ const stop = (m) => {echo(chalk.red("𐄂 " + m)); exit()}  // critical requirem
   if (lt(ver, min_abs))
     stop(`Kernel versions less than ${s(min_abs)} are too old to support measuring cpu throughput.`)
   
-  if (n_missing > 0) warn(`Kernel version is ${s(ver)}. Missing ${n_missing} important features!`)
+  if (n_missing > 0)
+    warn(`Kernel version is ${s(ver)}. Missing ${n_missing} important feature${n_missing-1 ? 's':''}!`)
   else good(`Kernel version is ${s(ver)}.`)
 }
 
