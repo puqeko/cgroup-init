@@ -2,7 +2,7 @@
 // https://github.com/opencontainers/runc/blob/v1.1.4/docs/cgroup-v2.md
 
 const good = (m) => echo(chalk.green("✓ " + m))  // requirement met
-const warn = (m) => echo(chalk.yellow("! " + m))  // highly recommended to avoid these
+const warn = (m) => echo(chalk.yellow("• " + m))  // highly recommended to avoid these
 const stop = (m) => {echo(chalk.red("𐄂 " + m)); exit()}  // critical requirement missing
 
 // 1. Check for support of kernal features
@@ -43,8 +43,8 @@ const stop = (m) => {echo(chalk.red("𐄂 " + m)); exit()}  // critical requirem
 
   const min_peak = [5, 19]
   if (ver < min_peak) {
-    warn(`Kernel versions less than ${s(min_peak)} cannot support measuring program
-  memory usage. Memory limits can still be inforced.`)
+    warn(`Kernel versions less than ${s(min_peak)} cannot support measuring program memory
+  usage. Memory limits can still be inforced.`)
     n_missing += 1
   }
   
