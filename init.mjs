@@ -38,24 +38,25 @@ const stop = (m) => {echo(chalk.red("𐄂 " + m)); exit()}  // critical requirem
   const ver = out.toString().trim().split('-')[0]  // xx.xx.xx
     .split('.').slice(0, 2).map((a) => parseInt(a)) // [major, minor]
   
+  const lt = (a, b) => a[0]*1000 + a[1] < b[0]*1000 + b[1]
   const s = (a) => a.join(".")
   let n_missing = 0
 
   const min_peak = [5, 19]
-  if (ver < min_peak) {
+  if (lt(ver, min_peak)) {
     warn(`Kernel versions less than ${s(min_peak)} cannot support measuring program memory
   usage. Memory limits can still be inforced.`)
     n_missing += 1
   }
   
   const min_freezer = [5, 2]
-  if (ver < min_freezer) {  // TODO: unsure yet of the impacts of this
+  if (lt(ver < min_freezer)) {  // TODO: unsure yet of the impacts of this
     warn(`Kernel versions less than ${s(min_freezer)} cannot support freezing groups of processes.`)
     n_missing += 1
   }
 
   const min_abs = [4, 15]
-  if (ver < min_abs)
+  if (lt(ver < min_abs))
     stop(`Kernel versions less than ${s(min_abs)} are too old to support measuring cpu throughput.`)
   
   if (n_missing > 0) warn(`Kernel version is ${s(ver)}. Missing ${n_missing} important features!`)
