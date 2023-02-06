@@ -96,8 +96,8 @@ disabled in the kernel???")  // unlikley to happen if kernel requirements met
 
 // Check systemd version
 {
-  let out = await $`systemd --version | head -1 | awk '{print $2}'`
-  const ver = parseInt(out.toString())
+  let out = await $`systemctl --version | head -1`
+  const ver = parseInt(out.toString().trim().split(' ').at(1))
 
   // The recommended systemd version of systemd is 244 or later. Older systemd does not
   // support delegation of cpuset controller which means we can't constrain programs to
