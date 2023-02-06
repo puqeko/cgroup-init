@@ -3,7 +3,7 @@
 
 const good = (m) => echo(chalk.green("✓ " + m))  // requirement met
 const warn = (m) => echo(chalk.yellow("• " + m))  // highly recommended to avoid these
-const stop = (m) => {echo(chalk.red("𐄂 " + m)); exit()}  // critical requirement missing
+const stop = (m) => {echo(chalk.red("𐄂 " + m)); process.exit()}  // critical requirement missing
 
 // 1. Check for support of kernal features
 //
@@ -112,7 +112,10 @@ const stop = (m) => {echo(chalk.red("𐄂 " + m)); exit()}  // critical requirem
   good(`systemd is version ${ver}.`)
 }
 
-// 
+// Check for systemd mode, if possible.
+// It also might be that we are in a container
+
+
 
 // stop(`cgroup v2 is supported by this system but not mounted at /sys/fs/cgroup as expected. \
 //           You could be using a unified heirachy where both cgroup v1 and cgroup v2 are enabled \
