@@ -1,0 +1,5 @@
+FROM quay.io/podman/stable
+
+RUN dnf -y update
+RUN dnf install -y go procps
+

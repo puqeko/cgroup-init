@@ -1,0 +1,23 @@
+services:
+  app:
+    command: sleep infinity
+    image: pm-stable
+    working_dir: /app
+    volumes:
+    - type: bind
+      source: ./testbin
+      target: /app/src
+    - pm-root:/var/lib/containers
+    - pm-user:/home/podman/.local/share/containers
+    cap_add:
+    - MKNOD
+    - SYS_ADMIN
+    devices:
+    - "/dev/fuse"
+    security_opt:
+    - label=disable
+    - seccomp=unconfined
+
+volumes:
+  pm-root:
+  pm-user:
