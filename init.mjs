@@ -74,7 +74,9 @@ const stop = (m) => {echo(chalk.red("𐄂 " + m)); process.exit()}  // critical 
   good("Kernel supports required cgroup v2.")
 }
 
-// 2. Check for systemd init system
+// TODO: double check cgroup v2 is mounted at /sys/fs/cgroup
+
+// 2. Check for systemd init system or not
 //
 // Systemd manages cgroup v2 in most distros.
 // There are three modes https://systemd.io/CGROUP_DELEGATION/
@@ -85,13 +87,20 @@ const stop = (m) => {echo(chalk.red("𐄂 " + m)); process.exit()}  // critical 
 // However, legacy is not supported and hybrid is not usable for managing
 // resource usage since controllers cannot be attached to cgroup v2 for use
 // as well as the cgroup v1 groups. Hence, systemd must be in unified mode.
+//
+// systemd is perfered because it is easier to track and manage system wide
+// resource allocations along with any containers that run.
+//
+// If systemd is not supported, fall back to cgroupfs (manual cgroup management)
+// In this case, it is most likley we are in a container. We will need to
+// inform podman via the --cgroup-manager=cgroupfs command if so.
 
 // Check for systemd init system
 {
   // check if systemd is running as process 1
   let out = await $`ps -p 1 -o comm=`
   out = out.toString().trim()
-  if (out !== "systemd")
+  if (out !== "systemd")  // TODO: change to fall back to cgroupfs
     stop(`${out} init system detected. Currently, only systemd is supported as the cgroup v2 driver.`)
   good("systemd init system detected.")
 }
