@@ -3,3 +3,5 @@ FROM quay.io/podman/stable
 RUN dnf -y update
 RUN dnf install -y go procps
 
+# WARNING do not use root user in production
+USER root

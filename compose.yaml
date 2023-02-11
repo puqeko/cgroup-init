@@ -3,10 +3,11 @@ services:
     command: sleep infinity
     image: pm-stable
     working_dir: /app
+    # privileged: true
     volumes:
     - type: bind
       source: ./testbin
-      target: /app/src
+      target: /home/podman/test
     - pm-root:/var/lib/containers
     - pm-user:/home/podman/.local/share/containers
     cap_add:
@@ -17,6 +18,9 @@ services:
     security_opt:
     - label=disable
     - seccomp=unconfined
+#     - unmask=/sys/fs/cgroup
+# https://github.com/containers/podman/issues/8441
+    user: root
 
 volumes:
   pm-root:
